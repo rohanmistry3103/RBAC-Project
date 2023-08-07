@@ -1,0 +1,269 @@
+<!-- rbac_app/templates/view_api.html -->
+<html>
+<head>
+<h1>MAIN MENU</h1>
+<h3><i>ALL AVAILABLE APIs </i></h3>
+{% if apis %}
+  <ol>
+    {% for api in apis %}
+      <li>{{ api.name }}</li>
+    {% endfor %}
+  </ol>
+{% else %}
+  <p>No APIs available.</p>
+{% endif %}
+
+
+<h3><i>API OPERATIONS: </i></h3>
+<p><a href="http://127.0.0.1:8000/add-api/" onclick="addAuthorizationToken(event)">CREATE API</a></p>
+
+<script>
+function addAuthorizationToken(event) {
+    // Retrieve the authorization token from local storage
+    const token = localStorage.getItem('token');
+
+    // Check if the token exists
+    if (token) {
+        // Prevent the default behavior of the link (opening the URL directly)
+        event.preventDefault();
+
+        // Create a new XMLHttpRequest object (AJAX request)
+        const xhr = new XMLHttpRequest();
+
+        // Configure the request to use the "POST" method and add the token to the "Authorization" header
+        xhr.open('GET', 'http://127.0.0.1:8000/add-api/', true);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+        // Set up the event listener to handle the response (optional)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                // Handle the response here if needed
+                // For example, you can redirect the user to the add-api page using window.location.href:
+                 window.location.href = 'http://127.0.0.1:8000/add-api/';
+
+            }
+        };
+
+        // Send the request (since it's a POST request, the server should handle it properly)
+        xhr.send();
+    }
+}
+</script>
+
+
+
+<p><a href="http://127.0.0.1:8000/remove-api/">REMOVE API</a></p>
+
+
+<p><a href="http://127.0.0.1:8000/update-api/" onclick="addAuthorizationToken1(event)"> UPDATE API</a></p>
+
+<script>
+function addAuthorizationToken1(event) {
+      // Retrieve the authorization token from local storage
+    const token = localStorage.getItem('token');
+  
+      // Check if the token exists
+      if (token) {
+          // Prevent the default behavior of the link (opening the URL directly)
+          event.preventDefault();
+  
+          // Create a new XMLHttpRequest object (AJAX request)
+          const xhr = new XMLHttpRequest();
+  
+          // Configure the request to use the "POST" method and add the token to the "Authorization" header
+          xhr.open('GET', 'http://127.0.0.1:8000/update-api/', true);
+          xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+  
+          // Set up the event listener to handle the response (optional)
+          xhr.onreadystatechange = function () {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  // Handle the response here if needed
+                  // For example, you can redirect the user to the add-api page using window.location.href:
+                   window.location.href = 'http://127.0.0.1:8000/update-api/';
+  
+              }
+          };
+  
+          // Send the request (since it's a POST request, the server should handle it properly)
+          xhr.send();
+      }
+  }
+</script>
+
+
+<p><a href="http://127.0.0.1:8000/view_all_apis/"onclick="addAuthorizationToken3(event)">VIEW ALL APIS</a></p>
+
+<script>
+function addAuthorizationToken3(event) {
+    // Retrieve the authorization token from local storage
+    const token = localStorage.getItem('token');
+
+    // Check if the token exists
+    if (token) {
+        // Prevent the default behavior of the link (opening the URL directly)
+        event.preventDefault();
+
+        // Create a new XMLHttpRequest object (AJAX request)
+        const xhr = new XMLHttpRequest();
+
+        // Configure the request to use the "POST" method and add the token to the "Authorization" header
+        xhr.open('GET', 'http://127.0.0.1:8000/view_all_apis/', true);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+        // Set up the event listener to handle the response (optional)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                // Handle the response here if needed
+                // For example, you can redirect the user to the add-api page using window.location.href:
+                 window.location.href = 'http://127.0.0.1:8000/view_all_apis/';
+
+            }
+        };
+
+        // Send the request (since it's a POST request, the server should handle it properly)
+        xhr.send();
+    }
+}
+</script>
+
+  
+
+<h3><i>USER OPERATIONS: </i></h3>
+
+
+<p><a href="http://127.0.0.1:8000/add-user/">ADD USER</a></p>
+
+
+<p><a href="http://127.0.0.1:8000/remove-user/">REMOVE USER</a></p>
+
+
+<p><a href="http://127.0.0.1:8000/update-user/"onclick="addAuthorizationToken4(event)"> UPDATE USER</a></p>
+
+<script>
+function addAuthorizationToken4(event) {
+      // Retrieve the authorization token from local storage
+    const token = localStorage.getItem('token');
+  
+      // Check if the token exists
+      if (token) {
+          // Prevent the default behavior of the link (opening the URL directly)
+          event.preventDefault();
+  
+          // Create a new XMLHttpRequest object (AJAX request)
+          const xhr = new XMLHttpRequest();
+  
+          // Configure the request to use the "POST" method and add the token to the "Authorization" header
+          xhr.open('GET', 'http://127.0.0.1:8000/update-user/', true);
+          xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+  
+          // Set up the event listener to handle the response (optional)
+          xhr.onreadystatechange = function () {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  // Handle the response here if needed
+                  // For example, you can redirect the user to the add-api page using window.location.href:
+                   window.location.href = 'http://127.0.0.1:8000/update-user/';
+  
+              }
+          };
+  
+          // Send the request (since it's a POST request, the server should handle it properly)
+          xhr.send();
+      }
+  }
+</script>
+
+
+<p><a href="http://127.0.0.1:8000/view_all_users/"onclick="addAuthorizationToken2(event)">VIEW ALL USERS</a></p>
+
+<script>
+function addAuthorizationToken2(event) {
+    // Retrieve the authorization token from local storage
+    const token = localStorage.getItem('token');
+
+    // Check if the token exists
+    if (token) {
+        // Prevent the default behavior of the link (opening the URL directly)
+        event.preventDefault();
+
+        // Create a new XMLHttpRequest object (AJAX request)
+        const xhr = new XMLHttpRequest();
+
+        // Configure the request to use the "POST" method and add the token to the "Authorization" header
+        xhr.open('GET', 'http://127.0.0.1:8000/view_all_users/', true);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+        // Set up the event listener to handle the response (optional)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                // Handle the response here if needed
+                // For example, you can redirect the user to the add-api page using window.location.href:
+                 window.location.href = 'http://127.0.0.1:8000/view_all_users/';
+
+            }
+        };
+
+        // Send the request (since it's a POST request, the server should handle it properly)
+        xhr.send();
+    }
+}
+</script>
+
+<button type="button" onclick="logoutUser()">LOGOUT</button>
+
+<script>
+  function logoutUser() {
+    // Retrieve the authorization token from local storage
+    const token = localStorage.getItem('token');
+
+    // Check if the token exists
+    if (token) {
+      // Create a new XMLHttpRequest object (AJAX request)
+      const xhr = new XMLHttpRequest();
+
+      // Configure the request to use the "POST" method and add the token to the "Authorization" header
+      xhr.open('POST', 'http://127.0.0.1:8000/logout/', true);
+      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+      xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); // Add CSRF token header
+
+      // Set up the event listener to handle the response (optional)
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          // Handle the response here if needed
+          // For example, you can redirect the user to the login page using window.location.href:
+          window.location.href = 'http://127.0.0.1:8000/login/';
+        }
+      };
+
+      // Send the request (since it's a POST request, the server should handle it properly)
+      xhr.send();
+    }
+  }
+
+  // Function to get the CSRF token from cookies
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+</script>
+
+<script>
+  // Check if the token is available
+  // Store the token in local storage
+  localStorage.setItem('token', '{{ token }}');
+</script>
+
+</head>
+</html>
+
+

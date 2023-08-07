@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Users</title>
+</head>
+<body>
+    <h1>All Users</h1>
+    <form id="view_all_users" method="post">
+        {% if users %}
+            <ol>
+                {% for user in users %}
+                    <li>{{user.id}}. {{ user.username }} - {{ user.role }}</li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>No users found.</p>
+        {% endif %}
+        
+        <button type="submit" id="mainPageButton">MAIN PAGE</button>
+        {% csrf_token %}
+    </form>
+
+    <script>
+        // Function to fetch and display all users
+        function viewAllUsers() {
+            const token = localStorage.getItem('token');
+            const authorizationHeader = "Bearer " + token;
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Configure the request
+            xhr.open("GET", "/view_all_users/");
+            xhr.setRequestHeader("Authorization", authorizationHeader);
+
+            // Send the request
+            xhr.send();
+
+            // Handle the response
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Success response
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    displayUsers(response); // Call function to display users on success
+                } else if (xhr.status === 401) {
+                    // Unauthorized response
+                    console.error("Authentication credentials were not provided.");
+                    // Redirect to login page or display an error message
+                } else {
+                    // Other error responses
+                    console.error("Request failed.");
+                    // Display an error message
+                }
+            };
+
+            // Handle errors
+            xhr.onerror = function () {
+                console.error("Request failed.");
+                // Display an error message
+            };
+        }
+
+        // Function to display users on the page
+        function displayUsers(usersData) {
+            const userListDiv = document.getElementById("userList");
+            userListDiv.innerHTML = ""; // Clear previous content
+
+            if (usersData.length > 0) {
+                const userList = document.createElement("ol");
+                usersData.forEach(user => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = user.id + ". " + user.username + " - " + user.role;
+                    userList.appendChild(listItem);
+                });
+                userListDiv.appendChild(userList);
+            } else {
+                const noUsersMsg = document.createElement("p");
+                noUsersMsg.textContent = "No users found.";
+                userListDiv.appendChild(noUsersMsg);
+            }
+        }
+
+        // Check if the token is available
+        // Store the token in local storage
+        localStorage.setItem('token', '{{ token }}');
+        
+        // Call the function to fetch and display all users
+        viewAllUsers();
+
+        // Redirect to "view-api" URL when the "MAIN PAGE" button is pressed
+        document.getElementById("mainPageButton").addEventListener("click", function() {
+            window.location.href = '/login/';
+        });
+    </script>
+</body>
+</html>
+

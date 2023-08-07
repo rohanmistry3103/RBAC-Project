@@ -1,0 +1,18 @@
+<!-- rbac_app/templates/signup.html -->
+<h1>Sign Up</h1>
+<form method="post">
+  {% csrf_token %}
+  <label for="username">Username:</label>
+  <input type="text" name="username" required>
+  <label for="password">Password:</label>
+  <input type="password" name="password1" required>
+  <label for="confirm_password">Confirm Password:</label>
+  <input type="password" name="password2" required>
+  <label for="role">Role:</label>
+  <select name="role">
+    <option value="admin">Admin</option>
+    <option value="user">User</option>
+    <option value="viewer">Viewer</option>
+  </select>
+  <button type="submit">Sign Up</button>
+</form>

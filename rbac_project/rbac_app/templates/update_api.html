@@ -1,0 +1,65 @@
+<!-- rbac_app/templates/update_api.html -->
+<h1>Update API</h1>
+<form id="updateForm" method="post">
+  {% csrf_token %}
+  <label for="name">API ID:</label>
+  <input type="text" name="api_id" id= "apiIdInput" required>
+  <label for="name">New API Name: </label>
+  <input type="text" name="api_id" id = "apiNameInput" value="{{ api.id }}">
+  <button type="submit">Update API</button>
+</form>
+
+<script>
+  document.getElementById("updateForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var apiId = document.getElementById("apiIdInput").value;
+    var apiName = document.getElementById("apiNameInput").value;
+    const token = localStorage.getItem('token');
+    var authorizationHeader = "Bearer "+ token; // Replace YOUR_AUTH_TOKEN with the actual authorization token
+
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+    
+    // Configure the request
+    xhr.open("POST", "/update-api/");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", authorizationHeader);
+
+    // Prepare the data to be sent in the request body
+    var data = {
+      api_Id: apiId,
+      name: apiName
+    };
+
+    // Convert the data to JSON and send the request
+    xhr.send(JSON.stringify(data));
+
+    // Handle the response
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        // Success response
+        var response = JSON.parse(xhr.responseText);
+        console.log(response);
+        alert("API updated successfully!");
+        window.location.href = "/login/"; // Redirect to the view page after successful update
+
+      } else if (xhr.status === 400) {
+        // Invalid data provided
+        console.error("Invalid data provided.");
+        alert("Invalid data provided.");
+
+      } else {
+        // Other error responses
+        console.error("Request failed.");
+        alert("Request failed.");
+      }
+    };
+
+    // Handle errors
+    xhr.onerror = function() {
+      console.error("Request failed.");
+      alert("Request failed.");
+    };
+  });
+</script>
+

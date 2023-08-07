@@ -1,0 +1,76 @@
+<!-- rbac_app/templates/update_user.html -->
+<h1>Update User</h1>
+<form id="updateUserForm" method="post">
+  {% csrf_token %}
+  <label for="name">USER ID TO BE CHANGED:</label>
+  <input type="text" name="user_id" id= "userIdInput" required>
+  <label for="username">New User Name:</label>
+  <input type="text" name="username" id="usernameInput" value="{{ user.username }}" required>
+  <label for="password">New Password:</label>
+  <input type="password" name="password" id="passwordInput">
+  <label for="role">New Role:</label>
+  <select name="role" id="roleSelect">
+    <option value="admin" {% if user.role == "admin" %}selected{% endif %}>Admin</option>
+    <option value="user" {% if user.role == "user" %}selected{% endif %}>User</option>
+    <option value="viewer" {% if user.role == "viewer" %}selected{% endif %}>Viewer</option>
+  </select>
+  <button type="submit">Update User</button>
+</form>
+
+<script>
+  document.getElementById("updateUserForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var userId = document.getElementById("userIdInput").value;
+    var userName = document.getElementById("usernameInput").value;
+    var password = document.getElementById("passwordInput").value;
+    var role = document.getElementById("roleSelect").value;
+    const token = localStorage.getItem('token');
+    var authorizationHeader = "Bearer " + token;
+
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+
+    // Configure the request
+    xhr.open("POST", `/update-user/`); // Assuming the user ID is passed as a context variable
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", authorizationHeader);
+
+    // Prepare the data to be sent in the request body
+    var data = {
+      user_Id: userId,
+      username: userName,
+      password: password,
+      role: role
+    };
+
+    // Convert the data to JSON and send the request
+    xhr.send(JSON.stringify(data));
+
+    // Handle the response
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        // Success response
+        var response = JSON.parse(xhr.responseText);
+        console.log(response);
+        alert("User updated successfully!");
+        window.location.href = "/view_all_apis/"; // Redirect to the view page after successful update
+
+      } else if (xhr.status === 400) {
+        // Invalid data provided
+        console.error("Invalid data provided.");
+        alert("Invalid data provided.");
+
+      } else {
+        // Other error responses
+        console.error("Request failed.");
+        alert("Request failed.");
+      }
+    };
+
+    // Handle errors
+    xhr.onerror = function() {
+      console.error("Request failed.");
+      alert("Request failed.");
+    };
+  });
+</script>

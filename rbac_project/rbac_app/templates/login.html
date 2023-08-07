@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form id="loginForm" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+    
+    <!--script>
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(loginForm);
+            fetch('/login/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                },
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                localStorage.setItem('authToken', data.token);
+                window.location.href = '/view-api/'; // Redirect to success page
+            })
+            .catch((error) => {
+                console.error('Login failed:', error);
+            });
+        });
+    </script-->
+</body>
+</html>

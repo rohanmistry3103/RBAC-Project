@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All APIs</title>
+</head>
+<body>
+    <h1>All APIs</h1>
+    {% if apis %}
+        <ul>
+            {% for api in apis %}
+                <li>{{ api.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No APIs found.</p>
+    {% endif %}
+
+    <div id="apiList">
+    </div>
+
+    <script>
+        // Function to fetch and display all APIs
+        function viewAllAPIs() {
+            const token = localStorage.getItem('token');
+            const authorizationHeader = "Bearer " + token;
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Configure the request
+            xhr.open("GET", "/view_all_apis/");
+            xhr.setRequestHeader("Authorization", authorizationHeader);
+
+            // Send the request
+            xhr.send();
+
+            // Handle the response
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Success response
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    displayAPIs(response); // Call function to display APIs on success
+                } else if (xhr.status === 401) {
+                    // Unauthorized response
+                    console.error("Authentication credentials were not provided.");
+                    // Redirect to login page or display an error message
+                } else {
+                    // Other error responses
+                    console.error("Request failed.");
+                    // Display an error message
+                }
+            };
+
+            // Handle errors
+            xhr.onerror = function () {
+                console.error("Request failed.");
+                // Display an error message
+            };
+        }
+
+        // Function to display APIs on the page
+        function displayAPIs(apisData) {
+            const apiListDiv = document.getElementById("apiList");
+            apiListDiv.innerHTML = ""; // Clear previous content
+
+            if (apisData.length > 0) {
+                const apiList = document.createElement("ul");
+                apisData.forEach(api => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = api.name;
+                    apiList.appendChild(listItem);
+                });
+                apiListDiv.appendChild(apiList);
+            } else {
+                const noAPIsMsg = document.createElement("p");
+                noAPIsMsg.textContent = "No APIs found.";
+                apiListDiv.appendChild(noAPIsMsg);
+            }
+        }
+
+        // Call the function to fetch and display all APIs
+        viewAllAPIs();
+    </script>
+</body>
+</html>

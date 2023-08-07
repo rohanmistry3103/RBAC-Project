@@ -1,0 +1,11 @@
+<!-- rbac_app/templates/view_user_api_mappings.html -->
+<h1>User-API Mappings</h1>
+{% if mappings %}
+  <ul>
+    {% for mapping in mappings %}
+      <li>{{ mapping.user.username }} - {{ mapping.api.name }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No user-API mappings found.</p>
+{% endif %}
