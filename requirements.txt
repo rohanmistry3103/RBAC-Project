@@ -1,0 +1,53 @@
+I AM USING UBUNTU (linux)
+
+Requirements:
+This project is made in Python-Django-RestFramework
+
+$python --version
+Python 3.8.16
+
+$django-admin --version
+Django 4.2.3
+
+Postgresql (PGAdmin)
+for database
+
+https://www.commandprompt.com/education/how-to-install-pgadmin-on-ubuntu/
+(UBUNTU)
+
+https://commandprompt.com/education/how-to-download-and-install-postgresql/
+(WINDOWS)
+
+##change your details as per your database in settings.py
+
+Postman
+for testing the URLs
+
+
+
+
+
+
+
+
+
+PACKAGES to be installed:
+
+--update pip--
+$sudo apt update
+
+--Django--
+$pip install Django
+
+--Restframework--
+$pip install djangorestframework
+
+--Simple JWT--
+$pip install djangorestframework-simplejwt
+
+--Postman--
+$sudo snap install postman
+
+--For them who are using sqlite--
+$pip install sqlite
+$pip install db-sqlite3
